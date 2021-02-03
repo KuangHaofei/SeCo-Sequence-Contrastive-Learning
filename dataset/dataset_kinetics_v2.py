@@ -9,7 +9,7 @@ from .dataset_builder import DATASETS
 
 @DATASETS.register_module()
 class KineticsClipFolderDatasetV2(torch.utils.data.Dataset):
-    def __init__(self, root, split='train_list', **kwargs):
+    def __init__(self, root, split='train', **kwargs):
         super(KineticsClipFolderDatasetV2, self).__init__()
         if '##' in root:  # super resource
             data_root_split = root.split('##')
@@ -36,7 +36,7 @@ class KineticsClipFolderDatasetV2(torch.utils.data.Dataset):
         for p in self.dataset_frame_root:
             assert os.path.exists(p)
         # data list file
-        assert split in ('train_list', 'val_list')
+        assert split in ('train', 'val')
         self.dataset_list_file = os.path.join(self.dataset_root[0], split + '.txt')
         assert os.path.exists(self.dataset_list_file)
         # load vid samples
@@ -75,7 +75,7 @@ class KineticsClipFolderDatasetV2(torch.utils.data.Dataset):
 
 @DATASETS.register_module()
 class KineticsClipFolderDatasetV2MultiFrames(KineticsClipFolderDatasetV2):
-    def __init__(self, root, transform=None, split='train_list', sample_num=0):
+    def __init__(self, root, transform=None, split='train', sample_num=0):
         super(KineticsClipFolderDatasetV2MultiFrames, self).__init__(root, split)
         self.transform = transform
         self.sample_num = sample_num
@@ -91,7 +91,7 @@ class KineticsClipFolderDatasetV2MultiFrames(KineticsClipFolderDatasetV2):
 
 @DATASETS.register_module()
 class KineticsClipFolderDatasetV2Pair(KineticsClipFolderDatasetV2):
-    def __init__(self, root, transform=None, split='train_list'):
+    def __init__(self, root, transform=None, split='train'):
         super(KineticsClipFolderDatasetV2Pair, self).__init__(root, split)
         self.transform = transform
         assert self.transform is not None
@@ -112,7 +112,7 @@ class KineticsClipFolderDatasetV2Pair(KineticsClipFolderDatasetV2):
 
 @DATASETS.register_module()
 class KineticsClipFolderDatasetV2Triplet(KineticsClipFolderDatasetV2):
-    def __init__(self, root, transform=None, split='train_list'):
+    def __init__(self, root, transform=None, split='train'):
         super(KineticsClipFolderDatasetV2Triplet, self).__init__(root, split)
         self.transform = transform
         assert self.transform is not None

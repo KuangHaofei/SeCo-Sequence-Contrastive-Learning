@@ -1,6 +1,6 @@
 #!/bin/bash
 
-data_dir="/dataset/Kinetics_t30_s256"
+data_dir="/home/ubuntu/drive2/kinetics400_30fps_frames"
 output_dir="./model"
 eval_dir="./model/eval_svm"
 pretrained="pretrain/moco_v2_200ep_pretrain.pth.tar"
