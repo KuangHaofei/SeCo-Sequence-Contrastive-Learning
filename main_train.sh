@@ -12,7 +12,7 @@ mkdir -p ${eval_dir}
 python3 -m torch.distributed.launch --master_port 12857 --nproc_per_node=${num_replica} \
     train_inter_intra_order.py \
     --data_dir=${data_dir} \
-    --datasplit=train_list \
+    --datasplit=train \
     --pretrained_model=${pretrained} \
     --output_dir=${output_dir} \
     --model_mlp

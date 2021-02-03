@@ -32,7 +32,7 @@ class KineticsClipFolderDatasetV2(torch.utils.data.Dataset):
         self.dataset_root_num = len(self.dataset_root)
         print('using {} data sources'.format(self.dataset_root_num))
         # data frame root
-        self.dataset_frame_root = [os.path.join(p, 'data') for p in self.dataset_root]
+        self.dataset_frame_root = [os.path.join(p, 'train') for p in self.dataset_root]
         for p in self.dataset_frame_root:
             assert os.path.exists(p)
         # data list file
@@ -44,7 +44,7 @@ class KineticsClipFolderDatasetV2(torch.utils.data.Dataset):
         self.transform = None
 
     def _get_aug_frame(self, frame_root, frame_idx):
-        frame = Image.open(os.path.join(frame_root, 'frame_{:06d}.jpg'.format(frame_idx)))
+        frame = Image.open(os.path.join(frame_root, 'frame_{:05d}.jpg'.format(frame_idx)))
         frame.convert('RGB')
         if self.transform is not None:
             frame_aug = self.transform(frame)
@@ -63,7 +63,11 @@ class KineticsClipFolderDatasetV2(torch.utils.data.Dataset):
                 vid_root = os.path.join(self.dataset_frame_root_ssd, lsp[0])
             else:
                 vid_root = os.path.join(self.dataset_frame_root[k % self.dataset_root_num], lsp[0])
+            vid_root, _ = os.path.splitext(vid_root)
+            # use splitetxt twice because there are some video root like: abseiling/9EnSwbXxu5g.mp4.webm
+            vid_root, _ = os.path.splitext(vid_root)
             vids.append((vid_root, int(lsp[1]), int(lsp[2])))
+
         return vids
 
     def __len__(self):
