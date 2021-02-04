@@ -32,7 +32,7 @@ class KineticsClipFolderDatasetV2(torch.utils.data.Dataset):
         self.dataset_root_num = len(self.dataset_root)
         print('using {} data sources'.format(self.dataset_root_num))
         # data frame root
-        self.dataset_frame_root = [os.path.join(p, 'train') for p in self.dataset_root]
+        self.dataset_frame_root = [os.path.join(p, split) for p in self.dataset_root]
         for p in self.dataset_frame_root:
             assert os.path.exists(p)
         # data list file
