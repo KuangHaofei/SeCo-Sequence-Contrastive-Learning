@@ -25,7 +25,7 @@ python3 -m torch.distributed.launch --master_port 9999 --nproc_per_node=${num_re
 
 
 python3 eval_svm_feature_perf.py \
-    --trainsplit=train_list \
+    --trainsplit=train \
     --valsplit=val \
     --output-dir=${eval_dir} \
     --num_replica=${num_replica} \
